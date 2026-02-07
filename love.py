@@ -16,6 +16,16 @@ SCREEN_ENVELOPE = 6
 SCREEN_LETTER = 7
 SCREEN_FINAL = 8
 
+PINK_SOFT = "#fce4ec"
+PINK_ROSE = "#e8b4bc"
+PINK_MAIN = "#c48b9f"
+ROSE_DEEP = "#9e6b7a"
+LAVENDER = "#d4c4d0"
+WHITE_WARM = "#fef9fb"
+TEXT_PRIMARY = "#5c4349"
+TEXT_ACCENT = "#7d5a65"
+SHADOW = "rgba(158, 107, 122, 0.2)"
+
 
 def get_connection():
     try:
@@ -26,37 +36,9 @@ def get_connection():
             password=st.secrets["neon"]["password"],
         )
         return conn
-    except Exception as e:
-        st.error(f"Could not connect to the database. Please try again later.")
-        return None
-
-
-def signup_user(username: str, password: str) -> bool:
-    if not username.strip() or not password.strip():
-        return False
-    conn = get_connection()
-    if not conn:
-        return False
-    try:
-        cur = conn.cursor()
-        password_hash = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
-        cur.execute(
-            "INSERT INTO users (username, password_hash) VALUES (%s, %s)",
-            (username.strip(), password_hash),
-        )
-        conn.commit()
-        cur.close()
-        return True
-    except psycopg2.IntegrityError:
-        conn.rollback()
-        return False
     except Exception:
-        if conn:
-            conn.rollback()
-        return False
-    finally:
-        if conn:
-            conn.close()
+        st.error("Could not connect to the database. Please try again later.")
+        return None
 
 
 def verify_user(username: str, password: str) -> bool:
@@ -95,59 +77,97 @@ def init_session_state():
         st.session_state.envelope_opened = False
     if "photos_flipped" not in st.session_state:
         st.session_state.photos_flipped = []
-    if "show_signup" not in st.session_state:
-        st.session_state.show_signup = False
 
 
 def apply_theme():
     st.markdown(
-        """
+        f"""
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap');
-    .stApp { background: linear-gradient(165deg, #fff5f8 0%, #ffe8f0 35%, #ffdde8 100%); }
-    h1, h2, h3 { font-family: 'Cormorant Garamond', serif !important; color: #8b3a5c !important; font-weight: 600 !important; }
-    p, .stMarkdown { font-family: 'Quicksand', sans-serif !important; color: #5c3a4a !important; }
-    .stButton > button {
+    .stApp {{
+        background: linear-gradient(160deg, {WHITE_WARM} 0%, {PINK_SOFT} 40%, {LAVENDER} 100%) !important;
+    }}
+    [data-testid="stAppViewContainer"] {{
+        background: linear-gradient(160deg, {WHITE_WARM} 0%, {PINK_SOFT} 40%, {LAVENDER} 100%) !important;
+    }}
+    h1, h2, h3 {{
+        font-family: 'Cormorant Garamond', serif !important;
+        color: {ROSE_DEEP} !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.02em !important;
+    }}
+    p, .stMarkdown, [data-testid="stMarkdown"] {{
         font-family: 'Quicksand', sans-serif !important;
-        background: linear-gradient(135deg, #d4567a 0%, #b83a5e 100%) !important;
-        color: #fff !important;
+        color: {TEXT_PRIMARY} !important;
+    }}
+    .stButton > button {{
+        font-family: 'Quicksand', sans-serif !important;
+        background: linear-gradient(135deg, {PINK_MAIN} 0%, {ROSE_DEEP} 100%) !important;
+        color: {WHITE_WARM} !important;
         border: none !important;
         border-radius: 999px !important;
-        padding: 0.6rem 1.8rem !important;
+        padding: 0.65rem 1.9rem !important;
         font-size: 1rem !important;
         font-weight: 500 !important;
         transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-    }
-    .stButton > button:hover {
-        transform: scale(1.03) !important;
-        box-shadow: 0 6px 20px rgba(184, 58, 94, 0.35) !important;
-    }
-    .heart-emoji { font-size: 2.5rem; margin: 0.25rem; }
-    .letter-box {
+        box-shadow: 0 4px 14px {SHADOW} !important;
+    }}
+    .stButton > button:hover {{
+        transform: scale(1.04) !important;
+        box-shadow: 0 6px 22px {SHADOW} !important;
+        color: {WHITE_WARM} !important;
+        border: none !important;
+    }}
+    [data-testid="stTextInput"] input {{
+        background: rgba(255,255,255,0.85) !important;
+        color: {TEXT_PRIMARY} !important;
+        border: 1px solid {PINK_ROSE} !important;
+        border-radius: 10px !important;
+        font-family: 'Quicksand', sans-serif !important;
+    }}
+    [data-testid="stTextInput"] input:focus {{
+        border-color: {PINK_MAIN} !important;
+        box-shadow: 0 0 0 2px {SHADOW} !important;
+    }}
+    [data-testid="stAlert"] {{
+        background: rgba(255,255,255,0.9) !important;
+        border: 1px solid {PINK_ROSE} !important;
+        border-radius: 10px !important;
+        color: {TEXT_PRIMARY} !important;
+        font-family: 'Quicksand', sans-serif !important;
+    }}
+    .heart-emoji {{ font-size: 2.5rem; margin: 0.35rem 0; }}
+    .letter-box {{
         font-family: 'Cormorant Garamond', serif;
         font-size: 1.15rem;
-        line-height: 1.85;
-        color: #4a3545;
+        line-height: 1.9;
+        color: {TEXT_PRIMARY};
         max-width: 42rem;
         margin: 2rem auto;
-        padding: 2rem;
-        background: rgba(255,255,255,0.7);
-        border-radius: 12px;
-        box-shadow: 0 4px 24px rgba(139, 58, 92, 0.12);
+        padding: 2.25rem;
+        background: rgba(254, 249, 251, 0.92);
+        border: 1px solid {PINK_ROSE};
+        border-radius: 14px;
+        box-shadow: 0 6px 28px {SHADOW};
         animation: fadeIn 1.2s ease-out;
-    }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-    .final-message {
+    }}
+    @keyframes fadeIn {{ from {{ opacity: 0; transform: translateY(14px); }} to {{ opacity: 1; transform: translateY(0); }} }}
+    .final-message {{
         font-family: 'Cormorant Garamond', serif;
-        font-size: clamp(1.8rem, 5vw, 2.8rem);
+        font-size: clamp(1.85rem, 5vw, 2.9rem);
         font-weight: 600;
-        color: #8b3a5c;
+        color: {ROSE_DEEP};
         text-align: center;
         margin: 3rem auto;
         padding: 2rem;
         animation: fadeIn 1s ease-out;
-    }
-    div[data-testid="stVerticalBlock"] > div { padding: 0.5rem 0; }
+        letter-spacing: 0.02em;
+    }}
+    div[data-testid="stVerticalBlock"] > div {{ padding: 0.5rem 0; }}
+    .stCaption {{
+        font-family: 'Quicksand', sans-serif !important;
+        color: {TEXT_ACCENT} !important;
+    }}
     </style>
     """,
         unsafe_allow_html=True,
@@ -160,31 +180,12 @@ def screen_login():
     st.markdown("Enter your details to begin this journey.")
     username = st.text_input("Username", key="login_username", placeholder="Your name")
     password = st.text_input("Password", type="password", key="login_password", placeholder="Your secret")
-    col1, col2 = st.columns(2)
-    with col1:
-        if st.button("Login", key="btn_login"):
-            if verify_user(username, password):
-                st.session_state.screen = SCREEN_BUILDUP
-                st.rerun()
-            else:
-                st.error("Invalid credentials. Try again.")
-    with col2:
-        if st.button("First time? Create access", key="btn_signup_link"):
-            st.session_state.show_signup = True
+    if st.button("Login", key="btn_login"):
+        if verify_user(username, password):
+            st.session_state.screen = SCREEN_BUILDUP
             st.rerun()
-
-    if st.session_state.get("show_signup"):
-        st.divider()
-        st.markdown("**Create your access**")
-        su_user = st.text_input("Choose username", key="signup_username", placeholder="Username")
-        su_pass = st.text_input("Choose password", type="password", key="signup_password", placeholder="Password")
-        if st.button("Create", key="btn_signup"):
-            if signup_user(su_user, su_pass):
-                st.success("Account created. You can log in now.")
-                st.session_state.show_signup = False
-                st.rerun()
-            else:
-                st.error("Username may already exist or fields are invalid.")
+        else:
+            st.error("Invalid credentials. Try again.")
 
 
 def screen_buildup():
