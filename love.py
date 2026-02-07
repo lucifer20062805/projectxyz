@@ -17,14 +17,15 @@ SCREEN_LETTER = 7
 SCREEN_FINAL = 8
 
 PINK_SOFT = "#fce4ec"
-PINK_ROSE = "#e8b4bc"
 PINK_MAIN = "#c48b9f"
-ROSE_DEEP = "#9e6b7a"
-LAVENDER = "#d4c4d0"
+ROSE_DEEP = "#9e5a6a"
+RED_ACCENT = "#b84a5a"
+LAVENDER = "#d4c4dc"
+BLUE_SOFT = "#e8e4f0"
 WHITE_WARM = "#fef9fb"
-TEXT_PRIMARY = "#5c4349"
-TEXT_ACCENT = "#7d5a65"
-SHADOW = "rgba(158, 107, 122, 0.2)"
+TEXT_PRIMARY = "#3d3236"
+TEXT_MUTED = "#6b5a60"
+SHADOW = "rgba(100, 70, 80, 0.18)"
 
 
 def get_connection():
@@ -85,10 +86,10 @@ def apply_theme():
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;500;600&display=swap');
     .stApp {{
-        background: linear-gradient(160deg, {WHITE_WARM} 0%, {PINK_SOFT} 40%, {LAVENDER} 100%) !important;
+        background: linear-gradient(165deg, {WHITE_WARM} 0%, {PINK_SOFT} 35%, {LAVENDER} 55%, {BLUE_SOFT} 100%) !important;
     }}
     [data-testid="stAppViewContainer"] {{
-        background: linear-gradient(160deg, {WHITE_WARM} 0%, {PINK_SOFT} 40%, {LAVENDER} 100%) !important;
+        background: linear-gradient(165deg, {WHITE_WARM} 0%, {PINK_SOFT} 35%, {LAVENDER} 55%, {BLUE_SOFT} 100%) !important;
     }}
     h1, h2, h3 {{
         font-family: 'Cormorant Garamond', serif !important;
@@ -113,15 +114,16 @@ def apply_theme():
         box-shadow: 0 4px 14px {SHADOW} !important;
     }}
     .stButton > button:hover {{
+        background: linear-gradient(135deg, {ROSE_DEEP} 0%, {RED_ACCENT} 100%) !important;
         transform: scale(1.04) !important;
         box-shadow: 0 6px 22px {SHADOW} !important;
         color: {WHITE_WARM} !important;
         border: none !important;
     }}
     [data-testid="stTextInput"] input {{
-        background: rgba(255,255,255,0.85) !important;
+        background: {WHITE_WARM} !important;
         color: {TEXT_PRIMARY} !important;
-        border: 1px solid {PINK_ROSE} !important;
+        border: 1px solid {LAVENDER} !important;
         border-radius: 10px !important;
         font-family: 'Quicksand', sans-serif !important;
     }}
@@ -130,11 +132,14 @@ def apply_theme():
         box-shadow: 0 0 0 2px {SHADOW} !important;
     }}
     [data-testid="stAlert"] {{
-        background: rgba(255,255,255,0.9) !important;
-        border: 1px solid {PINK_ROSE} !important;
+        background: {WHITE_WARM} !important;
+        border: 1px solid {LAVENDER} !important;
         border-radius: 10px !important;
         color: {TEXT_PRIMARY} !important;
         font-family: 'Quicksand', sans-serif !important;
+    }}
+    [data-testid="stAlert"] [data-testid="stMarkdown"] {{
+        color: {TEXT_PRIMARY} !important;
     }}
     .heart-emoji {{ font-size: 2.5rem; margin: 0.35rem 0; }}
     .letter-box {{
@@ -145,8 +150,8 @@ def apply_theme():
         max-width: 42rem;
         margin: 2rem auto;
         padding: 2.25rem;
-        background: rgba(254, 249, 251, 0.92);
-        border: 1px solid {PINK_ROSE};
+        background: {WHITE_WARM};
+        border: 1px solid {LAVENDER};
         border-radius: 14px;
         box-shadow: 0 6px 28px {SHADOW};
         animation: fadeIn 1.2s ease-out;
@@ -162,11 +167,12 @@ def apply_theme():
         padding: 2rem;
         animation: fadeIn 1s ease-out;
         letter-spacing: 0.02em;
+        text-shadow: 0 1px 2px {SHADOW};
     }}
     div[data-testid="stVerticalBlock"] > div {{ padding: 0.5rem 0; }}
     .stCaption {{
         font-family: 'Quicksand', sans-serif !important;
-        color: {TEXT_ACCENT} !important;
+        color: {TEXT_MUTED} !important;
     }}
     </style>
     """,
