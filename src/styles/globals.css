@@ -1,6 +1,12 @@
 @import "tailwindcss";
 
 @layer base {
+  :root {
+    --border: #e5e7eb;
+    --background: #ffffff;
+    --foreground: #000000;
+  }
+
   * {
     @apply border-border;
   }

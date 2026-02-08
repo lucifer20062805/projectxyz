@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Calendar, Heart, Sparkles } from 'lucide-react';
-import cuteBearsImage from 'figma:asset/8f666fdd981681a06410827992514812b953070c.png';
+import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 export function SeeYouSoon() {
   return (
