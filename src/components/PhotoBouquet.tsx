@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import cuteBearsImage from 'figma:asset/8f666fdd981681a06410827992514812b953070c.png';
+import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface PhotoBouquetProps {
   onNext: () => void;

@@ -6,7 +6,7 @@ import { Celebration } from './components/Celebration';
 import { PhotoBouquet } from './components/PhotoBouquet';
 import { FinalSurprise } from './components/FinalSurprise';
 import { SeeYouSoon } from './components/SeeYouSoon';
-import cuteBearsImage from 'figma:asset/8f666fdd981681a06410827992514812b953070c.png';
+import cuteBearsImage from './assets/8f666fdd981681a06410827992514812b953070c.png';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState(0);

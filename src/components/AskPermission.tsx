@@ -1,5 +1,5 @@
 import { Heart } from 'lucide-react';
-import cuteBearsImage from 'figma:asset/8f666fdd981681a06410827992514812b953070c.png';
+import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface AskPermissionProps {
   onNext: () => void;
