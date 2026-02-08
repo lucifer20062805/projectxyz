@@ -40,7 +40,7 @@ export function LoginPage({ onLogin }: LoginPageProps) {
     setLoading(true);
 
     try {
-      const endpoint = isSignup ? '/api/signup' : '/api/login';
+      const endpoint = isSignup ? '/api/register' : '/api/login';
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
