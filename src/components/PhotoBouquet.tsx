@@ -18,11 +18,11 @@ export function PhotoBouquet({ onNext }: PhotoBouquetProps) {
   const [flipped, setFlipped] = useState(false);
 
   const photos: Photo[] = [
-    { id: 1, text: "Your smile brightens my darkest days 🌟" },
-    { id: 2, text: "Every moment with you is a treasure 💎" },
-    { id: 3, text: "You make my heart skip a beat 💓" },
+    { id: 1, text: "Your Eyes? More like fine Wine..🫣👀 " },
+    { id: 2, text: "The ocean is vast.. but ig you are more interesting.❤️" },
+    { id: 3, text: "Damn..now i know why my phone heats up when i text you!!💓" },
     { id: 4, text: "Your laugh is my favorite sound 🎵" },
-    { id: 5, text: "With you, every day feels like magic ✨" },
+    { id: 5, text: "Am i looking at wifey material?✨" },
   ];
 
   const handlePhotoClick = (id: number) => {
