@@ -1,7 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
-import App from '@/src/App';
+import App from '../src/App';
 
 function LoadingFallback() {
   return (

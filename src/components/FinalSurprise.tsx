@@ -1,7 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
+import { useState } from 'react';
 
 interface FinalSurpriseProps {
   onNext: () => void;
@@ -9,11 +8,6 @@ interface FinalSurpriseProps {
 
 export function FinalSurprise({ onNext }: FinalSurpriseProps) {
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const letterText = `My Dearest Valentine,
 
@@ -32,114 +26,48 @@ With all my love 💕`;
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-indigo-200 via-purple-100 to-pink-200">
-      {/* Floating hearts background */}
-      {mounted && (
-        <div className="absolute inset-0 pointer-events-none opacity-10">
-          {[...Array(8)].map((_, i) => (
-            <motion.div
-              key={i}
-              className="absolute text-5xl"
-              initial={{ 
-                x: Math.random() * window.innerWidth,
-                y: window.innerHeight + 50,
-              }}
-              animate={{
-                y: -100,
-                x: Math.random() * window.innerWidth,
-              }}
-              transition={{
-                duration: 8 + Math.random() * 4,
-                repeat: Infinity,
-                delay: Math.random() * 5,
-                ease: "linear",
-              }}
-            >
-              {'💗❤️💕💖💓💞💝💘'[i % 8]}
-            </motion.div>
-          ))}
-        </div>
-      )}
-
       <div className="text-center max-w-4xl relative z-10">
         {!envelopeOpen ? (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-          >
+          <div className="animate-fade-in">
             <h1 className="text-5xl md:text-6xl font-bold mb-12 bg-gradient-to-r from-pink-500 via-red-500 to-purple-500 bg-clip-text text-transparent">
               Your Final Surprise 💌
             </h1>
 
-            {/* Envelope */}
-            <motion.div
-              className="relative mx-auto cursor-pointer"
+            <div
+              className="relative mx-auto cursor-pointer hover:scale-105 transition-transform duration-300"
               style={{ width: '300px', height: '200px' }}
               onClick={() => setEnvelopeOpen(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
             >
-              {/* Envelope body */}
               <div className="absolute inset-0 bg-gradient-to-br from-red-400 to-pink-500 rounded-lg shadow-2xl">
-                {/* Envelope flap */}
-                <motion.div
+                <div
                   className="absolute -top-1 left-0 right-0 h-24 bg-gradient-to-br from-red-500 to-pink-600 origin-top"
-                  style={{
-                    clipPath: 'polygon(0 0, 50% 60%, 100% 0)',
-                  }}
-                  animate={{
-                    rotateX: 0,
-                  }}
+                  style={{ clipPath: 'polygon(0 0, 50% 60%, 100% 0)' }}
                 />
-                
-                {/* Heart seal */}
+
                 <div className="absolute top-12 left-1/2 -translate-x-1/2 w-16 h-16 bg-white rounded-full flex items-center justify-center shadow-lg z-10">
                   <span className="text-3xl">💝</span>
                 </div>
 
-                {/* Envelope lines */}
                 <div className="absolute bottom-12 left-8 right-8 space-y-2">
-                  <div className="h-1 bg-red-300 rounded opacity-50"></div>
-                  <div className="h-1 bg-red-300 rounded opacity-50 w-3/4"></div>
+                  <div className="h-1 bg-red-300 rounded opacity-50" />
+                  <div className="h-1 bg-red-300 rounded opacity-50 w-3/4" />
                 </div>
               </div>
 
-              {/* Sparkles around envelope */}
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute text-2xl"
-                  style={{
-                    top: '50%',
-                    left: '50%',
-                  }}
-                  animate={{
-                    x: Math.cos(i * Math.PI / 4) * 120,
-                    y: Math.sin(i * Math.PI / 4) * 120,
-                    opacity: [0.3, 1, 0.3],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: i * 0.2,
-                  }}
-                >
-                  ✨
-                </motion.div>
-              ))}
-            </motion.div>
+              <div className="absolute inset-0 pointer-events-none">
+                <span className="absolute text-2xl left-4 top-4 animate-pulse">✨</span>
+                <span className="absolute text-2xl right-6 top-6 animate-pulse">✨</span>
+                <span className="absolute text-2xl left-10 bottom-6 animate-pulse">✨</span>
+                <span className="absolute text-2xl right-8 bottom-4 animate-pulse">✨</span>
+              </div>
+            </div>
 
             <p className="mt-12 text-2xl text-pink-600 animate-pulse">
               Click the envelope to open your letter 💕
             </p>
-          </motion.div>
+          </div>
         ) : (
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-pink-200 max-w-3xl mx-auto"
-          >
+          <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 md:p-12 border-4 border-pink-200 max-w-3xl mx-auto animate-fade-in">
             <div className="mb-6">
               <div className="text-6xl mb-4">💌</div>
               <h2 className="text-4xl font-bold bg-gradient-to-r from-pink-500 via-red-500 to-purple-500 bg-clip-text text-transparent mb-2">
@@ -149,36 +77,19 @@ With all my love 💕`;
 
             <div className="max-h-96 overflow-y-auto pr-4 custom-scrollbar">
               <div className="text-left space-y-4 text-gray-700 leading-relaxed">
-                {letterText.split('\n\n').map((paragraph, index) => (
-                  <motion.p
-                    key={index}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                    className="text-lg"
-                  >
+                {letterText.split('\\n\\n').map((paragraph, index) => (
+                  <p key={index} className="text-lg animate-fade-in-delay">
                     {paragraph}
-                  </motion.p>
+                  </p>
                 ))}
               </div>
             </div>
 
             <div className="mt-8 flex justify-center gap-2 text-3xl">
               {[...Array(7)].map((_, i) => (
-                <motion.span
-                  key={i}
-                  animate={{
-                    scale: [1, 1.2, 1],
-                    opacity: [0.5, 1, 0.5],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    delay: i * 0.2,
-                  }}
-                >
+                <span key={i} className="animate-pulse-gentle">
                   💖
-                </motion.span>
+                </span>
               ))}
             </div>
 
@@ -188,9 +99,10 @@ With all my love 💕`;
             >
               Continue... 💕
             </button>
-          </motion.div>
+          </div>
         )}
       </div>
     </div>
   );
 }
+

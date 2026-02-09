@@ -2,7 +2,6 @@
   "name": "cute-love-proposal-website",
   "version": "0.1.0",
   "private": true,
-  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -42,12 +41,11 @@
     "embla-carousel-react": "^8.6.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.487.0",
-    "motion": "^10.18.0",
     "next": "14.1.0",
     "next-themes": "^0.4.6",
     "react": "18.2.0",
-    "react-dom": "18.2.0",
     "react-day-picker": "^8.10.1",
+    "react-dom": "18.2.0",
     "react-hook-form": "^7.55.0",
     "react-resizable-panels": "^2.1.7",
     "recharts": "^2.15.2",
@@ -55,9 +53,12 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
-    "tailwindcss": "3.4.1",
-    "tailwind-merge": "2.4.0",
+    "@types/node": "25.2.2",
+    "@types/react": "19.2.13",
     "autoprefixer": "10.4.16",
-    "postcss": "8.4.31"
+    "postcss": "8.4.31",
+    "tailwind-merge": "2.4.0",
+    "tailwindcss": "3.4.1",
+    "typescript": "5.9.3"
   }
 }
