@@ -86,13 +86,7 @@ export function PhotoBouquet({ onNext }: PhotoBouquetProps) {
               {/* Flower/Photo */}
               <div className="w-32 h-32 rounded-full border-8 border-pink-400 bg-white shadow-xl flex items-center justify-center overflow-hidden hover:border-pink-500 hover:shadow-2xl transition-all">
                 <ImageWithFallback
-                  src={`https://images.unsplash.com/photo-${
-                    index === 0 ? '1494790108377-be9c29b29330' :
-                    index === 1 ? '1529626455594-4ff0802cfb7e' :
-                    index === 2 ? '1516589178581-6cd7833ae3b2' :
-                    index === 3 ? '1502139214982-d0ad755818d8' :
-                    '1488426862026-3ee34a7d66df'
-                  }?w=200&h=200&fit=crop`}
+                  src={`/memories/memory${photo.id}.jpg`}
                   alt={`Memory ${photo.id}`}
                   className="w-full h-full object-cover"
                 />
@@ -148,13 +142,7 @@ export function PhotoBouquet({ onNext }: PhotoBouquetProps) {
                 <div className="bg-white rounded-2xl shadow-2xl p-4 h-full border-8 border-pink-200">
                   <div className="w-full h-full rounded-lg overflow-hidden">
                     <ImageWithFallback
-                      src={`https://images.unsplash.com/photo-${
-                        selectedPhoto === 1 ? '1494790108377-be9c29b29330' :
-                        selectedPhoto === 2 ? '1529626455594-4ff0802cfb7e' :
-                        selectedPhoto === 3 ? '1516589178581-6cd7833ae3b2' :
-                        selectedPhoto === 4 ? '1502139214982-d0ad755818d8' :
-                        '1488426862026-3ee34a7d66df'
-                      }?w=400&h=500&fit=crop`}
+                      src={`/memories/memory${selectedPhoto}.jpg`}
                       alt={`Memory ${selectedPhoto}`}
                       className="w-full h-full object-cover"
                     />
