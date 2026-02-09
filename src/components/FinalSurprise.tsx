@@ -1,6 +1,7 @@
-import { useState } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface FinalSurpriseProps {
   onNext: () => void;
@@ -8,6 +9,11 @@ interface FinalSurpriseProps {
 
 export function FinalSurprise({ onNext }: FinalSurpriseProps) {
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const letterText = `My Dearest Valentine,
 
@@ -26,31 +32,33 @@ With all my love 💕`;
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-indigo-200 via-purple-100 to-pink-200">
-      {/* Floating cute bears background */}
-      <div className="absolute inset-0 pointer-events-none opacity-10">
-        {[...Array(8)].map((_, i) => (
-          <motion.img
-            key={i}
-            src={cuteBearsImage}
-            alt=""
-            className="absolute w-24 h-24"
-            initial={{ 
-              x: Math.random() * window.innerWidth,
-              y: window.innerHeight + 50,
-            }}
-            animate={{
-              y: -100,
-              x: Math.random() * window.innerWidth,
-            }}
-            transition={{
-              duration: 8 + Math.random() * 4,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "linear",
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating hearts background */}
+      {mounted && (
+        <div className="absolute inset-0 pointer-events-none opacity-10">
+          {[...Array(8)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-5xl"
+              initial={{ 
+                x: Math.random() * window.innerWidth,
+                y: window.innerHeight + 50,
+              }}
+              animate={{
+                y: -100,
+                x: Math.random() * window.innerWidth,
+              }}
+              transition={{
+                duration: 8 + Math.random() * 4,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "linear",
+              }}
+            >
+              {'💗❤️💕💖💓💞💝💘'[i % 8]}
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       <div className="text-center max-w-4xl relative z-10">
         {!envelopeOpen ? (

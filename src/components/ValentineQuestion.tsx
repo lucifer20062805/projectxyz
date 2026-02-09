@@ -1,6 +1,7 @@
+'use client';
+
 import { useState, useRef } from 'react';
 import { Heart } from 'lucide-react';
-import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface ValentineQuestionProps {
   onYes: () => void;
@@ -14,41 +15,43 @@ export function ValentineQuestion({ onYes }: ValentineQuestionProps) {
 
   const handleNoHover = () => {
     // Generate random position within viewport bounds
-    const maxX = window.innerWidth - 300;
-    const maxY = window.innerHeight - 200;
-    const newX = (Math.random() - 0.5) * maxX;
-    const newY = (Math.random() - 0.5) * maxY;
-    
-    setNoPosition({ x: newX, y: newY });
+    if (typeof window !== 'undefined') {
+      const maxX = window.innerWidth - 300;
+      const maxY = window.innerHeight - 200;
+      const newX = (Math.random() - 0.5) * maxX;
+      const newY = (Math.random() - 0.5) * maxY;
+      
+      setNoPosition({ x: newX, y: newY });
+    }
     setYesSize(prev => Math.min(prev + 0.15, 2.5));
     setNoClicks(prev => prev + 1);
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 overflow-hidden bg-gradient-to-br from-red-200 via-pink-100 to-orange-100">
-      {/* Cute bears decoration */}
+      {/* Heart stickers decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15">
         {[...Array(4)].map((_, i) => (
-          <img
+          <div
             key={i}
-            src={cuteBearsImage}
-            alt=""
-            className="absolute w-28 h-28 animate-float"
+            className="absolute text-6xl animate-float"
             style={{
               left: `${(i * 25) % 100}%`,
               top: `${(i * 30) % 80}%`,
               animationDelay: `${i * 1.5}s`,
             }}
-          />
+          >
+            {'💗❤️💕💖'[i]}
+          </div>
         ))}
       </div>
       
       <div className="text-center max-w-3xl relative z-10">
         {/* Decorative hearts */}
         <div className="absolute -top-20 left-1/2 -translate-x-1/2 flex gap-4">
-          <img src={cuteBearsImage} alt="" className="w-16 h-16" />
+          <span className="text-6xl">💕</span>
           <span className="text-6xl">❤️</span>
-          <img src={cuteBearsImage} alt="" className="w-16 h-16" />
+          <span className="text-6xl">💗</span>
         </div>
 
         {/* Main card */}

@@ -1,37 +1,64 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { Sparkles } from 'lucide-react';
-import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface CelebrationProps {
   onNext: () => void;
 }
 
+interface Confetti {
+  id: number;
+  left: number;
+  delay: number;
+  duration: number;
+  emoji: string;
+}
+
 export function Celebration({ onNext }: CelebrationProps) {
+  const [confetti, setConfetti] = useState<Confetti[]>([]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const confettiPieces: Confetti[] = Array.from({ length: 50 }, (_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      delay: Math.random() * 3,
+      duration: 3 + Math.random() * 2,
+      emoji: ['💖', '💕', '💗', '💓', '💝', '✨', '⭐', '🎉'][Math.floor(Math.random() * 8)],
+    }));
+    setConfetti(confettiPieces);
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-yellow-200 via-pink-200 to-rose-200">
       {/* Confetti effect */}
-      <div className="absolute inset-0 pointer-events-none">
-        {[...Array(50)].map((_, i) => (
-          <div
-            key={i}
-            className="absolute animate-confetti"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `-20px`,
-              animationDelay: `${Math.random() * 3}s`,
-              animationDuration: `${3 + Math.random() * 2}s`,
-            }}
-          >
-            {['💖', '💕', '💗', '💓', '💝', '✨', '⭐', '🎉'][Math.floor(Math.random() * 8)]}
-          </div>
-        ))}
-      </div>
+      {mounted && (
+        <div className="absolute inset-0 pointer-events-none">
+          {confetti.map((piece) => (
+            <div
+              key={piece.id}
+              className="absolute animate-confetti"
+              style={{
+                left: `${piece.left}%`,
+                top: `-20px`,
+                animationDelay: `${piece.delay}s`,
+                animationDuration: `${piece.duration}s`,
+              }}
+            >
+              {piece.emoji}
+            </div>
+          ))}
+        </div>
+      )}
 
       <div className="text-center max-w-4xl relative z-10">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-12 border-4 border-pink-300">
-          {/* Celebration with cute bears */}
+          {/* Celebration with hearts */}
           <div className="mb-8 relative">
             <div className="w-64 h-64 mx-auto bg-gradient-to-br from-pink-200 via-purple-200 to-red-200 rounded-3xl flex items-center justify-center overflow-hidden">
-              <img src={cuteBearsImage} alt="" className="w-48 h-48 animate-pulse-scale" />
+              <span className="text-9xl animate-pulse-scale">💖</span>
             </div>
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="text-9xl animate-spin-slow">✨</div>

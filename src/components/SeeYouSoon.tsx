@@ -1,35 +1,45 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { Calendar, Heart, Sparkles } from 'lucide-react';
-import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 export function SeeYouSoon() {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-gradient-to-br from-rose-200 via-red-100 to-pink-200">
-      {/* Floating cute bears background */}
-      <div className="absolute inset-0 pointer-events-none opacity-15">
-        {[...Array(6)].map((_, i) => (
-          <motion.img
-            key={i}
-            src={cuteBearsImage}
-            alt=""
-            className="absolute w-28 h-28"
-            initial={{ 
-              x: (i * 20) % 100 + '%',
-              y: window.innerHeight + 50,
-            }}
-            animate={{
-              y: -100,
-              rotate: 360,
-            }}
-            transition={{
-              duration: 10 + Math.random() * 5,
-              repeat: Infinity,
-              delay: Math.random() * 5,
-              ease: "linear",
-            }}
-          />
-        ))}
-      </div>
+      {/* Floating hearts background */}
+      {mounted && (
+        <div className="absolute inset-0 pointer-events-none opacity-15">
+          {[...Array(6)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="absolute text-6xl"
+              initial={{ 
+                x: (i * 20) % 100 + '%',
+                y: window.innerHeight + 50,
+              }}
+              animate={{
+                y: -100,
+                rotate: 360,
+              }}
+              transition={{
+                duration: 10 + Math.random() * 5,
+                repeat: Infinity,
+                delay: Math.random() * 5,
+                ease: "linear",
+              }}
+            >
+              {'💗❤️💕💖💓💞'[i]}
+            </motion.div>
+          ))}
+        </div>
+      )}
 
       <div className="text-center max-w-4xl relative z-10">
         <motion.div
@@ -88,10 +98,8 @@ export function SeeYouSoon() {
             animate={{ scale: 1 }}
             transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
           >
-            <motion.img
-              src={cuteBearsImage}
-              alt=""
-              className="w-16 h-16"
+            <motion.span
+              className="text-5xl"
               animate={{
                 y: [0, -15, 0],
               }}
@@ -100,12 +108,12 @@ export function SeeYouSoon() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-            />
+            >
+              💗
+            </motion.span>
             <span className="text-5xl">💝</span>
-            <motion.img
-              src={cuteBearsImage}
-              alt=""
-              className="w-16 h-16"
+            <motion.span
+              className="text-5xl"
               animate={{
                 y: [0, -15, 0],
               }}
@@ -115,12 +123,12 @@ export function SeeYouSoon() {
                 delay: 0.3,
                 ease: "easeInOut",
               }}
-            />
+            >
+              💖
+            </motion.span>
             <span className="text-5xl">✨</span>
-            <motion.img
-              src={cuteBearsImage}
-              alt=""
-              className="w-16 h-16"
+            <motion.span
+              className="text-5xl"
               animate={{
                 y: [0, -15, 0],
               }}
@@ -130,7 +138,9 @@ export function SeeYouSoon() {
                 delay: 0.6,
                 ease: "easeInOut",
               }}
-            />
+            >
+              ❤️
+            </motion.span>
           </motion.div>
 
           {/* Message box */}

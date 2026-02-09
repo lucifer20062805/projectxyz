@@ -1,6 +1,7 @@
+'use client';
+
 import { useState } from 'react';
 import { Heart, Sparkles } from 'lucide-react';
-import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface LoginPageProps {
   onLogin: () => void;
@@ -23,30 +24,30 @@ export function LoginPage({ onLogin }: LoginPageProps) {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-pink-200 via-rose-100 to-red-100">
-      {/* Cute bears decoration */}
+      {/* Heart stickers decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-20">
-        <img 
-          src={cuteBearsImage} 
-          alt="" 
-          className="absolute top-10 left-10 w-24 h-24 animate-float"
-        />
-        <img 
-          src={cuteBearsImage} 
-          alt="" 
-          className="absolute bottom-10 right-10 w-24 h-24 animate-float"
+        <div 
+          className="absolute top-10 left-10 w-24 h-24 text-5xl animate-float"
+        >
+          💗
+        </div>
+        <div 
+          className="absolute bottom-10 right-10 w-24 h-24 text-5xl animate-float"
           style={{ animationDelay: '1s' }}
-        />
+        >
+          ❤️
+        </div>
       </div>
       
       <div className="relative">
         {/* Decorative stickers */}
-        <div className="absolute -top-12 -left-12 w-20 h-20">
-          <img src={cuteBearsImage} alt="" className="w-full h-full animate-pulse" />
+        <div className="absolute -top-12 -left-12 text-6xl animate-pulse">
+          💕
         </div>
         <div className="absolute -top-8 -right-16 text-5xl">✨</div>
         <div className="absolute -bottom-10 -left-16 text-5xl">💝</div>
-        <div className="absolute -bottom-8 -right-12 w-20 h-20">
-          <img src={cuteBearsImage} alt="" className="w-full h-full animate-pulse" style={{ animationDelay: '0.5s' }} />
+        <div className="absolute -bottom-8 -right-12 text-6xl animate-pulse" style={{ animationDelay: '0.5s' }}>
+          💖
         </div>
         
         {/* Login card */}

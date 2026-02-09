@@ -1,5 +1,6 @@
+'use client';
+
 import { Heart } from 'lucide-react';
-import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface AskPermissionProps {
   onNext: () => void;
@@ -8,27 +9,27 @@ interface AskPermissionProps {
 export function AskPermission({ onNext }: AskPermissionProps) {
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-purple-200 via-pink-100 to-fuchsia-100">
-      {/* Cute bears decoration */}
+      {/* Heart stickers decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15">
-        <img 
-          src={cuteBearsImage} 
-          alt="" 
-          className="absolute top-20 right-20 w-32 h-32 animate-float"
-        />
-        <img 
-          src={cuteBearsImage} 
-          alt="" 
-          className="absolute bottom-20 left-20 w-32 h-32 animate-float"
+        <div 
+          className="absolute top-20 right-20 text-7xl animate-float"
+        >
+          💗
+        </div>
+        <div 
+          className="absolute bottom-20 left-20 text-7xl animate-float"
           style={{ animationDelay: '2s' }}
-        />
+        >
+          ❤️
+        </div>
       </div>
       
       <div className="text-center max-w-2xl relative z-10">
         {/* Floating decoration */}
         <div className="mb-8 flex justify-center gap-4">
-          <img src={cuteBearsImage} alt="" className="w-20 h-20 animate-float" />
+          <span className="text-6xl animate-float">💕</span>
           <span className="text-6xl animate-float" style={{ animationDelay: '0.5s' }}>💖</span>
-          <img src={cuteBearsImage} alt="" className="w-20 h-20 animate-float" style={{ animationDelay: '1s' }} />
+          <span className="text-6xl animate-float" style={{ animationDelay: '1s' }}>💗</span>
         </div>
 
         {/* Main content */}

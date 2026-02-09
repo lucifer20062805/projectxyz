@@ -1,7 +1,8 @@
+'use client';
+
 import { useState } from 'react';
 import { X } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import cuteBearsImage from '../assets/8f666fdd981681a06410827992514812b953070c.png';
 
 interface PhotoBouquetProps {
   onNext: () => void;
@@ -40,20 +41,20 @@ export function PhotoBouquet({ onNext }: PhotoBouquetProps) {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-4 py-12 bg-gradient-to-br from-green-100 via-teal-50 to-cyan-100">
-      {/* Cute bears decoration */}
+      {/* Heart stickers decoration */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-15">
         {[...Array(5)].map((_, i) => (
-          <img
+          <div
             key={i}
-            src={cuteBearsImage}
-            alt=""
-            className="absolute w-24 h-24 animate-float"
+            className="absolute text-5xl animate-float"
             style={{
               left: `${(i * 22) % 100}%`,
               top: `${(i * 25) % 80}%`,
               animationDelay: `${i * 1.2}s`,
             }}
-          />
+          >
+            {'💗❤️💕💖💓'[i]}
+          </div>
         ))}
       </div>
       
