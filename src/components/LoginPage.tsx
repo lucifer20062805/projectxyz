@@ -11,14 +11,53 @@ export function LoginPage({ onLogin }: LoginPageProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [shake, setShake] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (username && password) {
-      onLogin();
-    } else {
+    setError(null);
+
+    if (!username.trim() || !password.trim()) {
       setShake(true);
       setTimeout(() => setShake(false), 500);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username: username.trim(), password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setError(data.message || 'Login failed');
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+        setLoading(false);
+        return;
+      }
+
+      if (data.success) {
+        onLogin();
+      } else {
+        setError(data.message || 'Login failed');
+        setShake(true);
+        setTimeout(() => setShake(false), 500);
+        setLoading(false);
+      }
+    } catch (err) {
+      setError('Network error. Please try again.');
+      setShake(true);
+      setTimeout(() => setShake(false), 500);
+      setLoading(false);
     }
   };
 
@@ -66,6 +105,12 @@ export function LoginPage({ onLogin }: LoginPageProps) {
             </p>
           </div>
 
+          {error && (
+            <div className="mb-4 p-3 bg-red-50 border-2 border-red-200 rounded-xl text-red-600 text-sm text-center">
+              {error}
+            </div>
+          )}
+
           <form onSubmit={handleLogin} className="space-y-6">
             <div className="relative">
               <input
@@ -73,7 +118,8 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="Your name ✨"
-                className="w-full px-6 py-4 rounded-2xl border-2 border-pink-300 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200 bg-pink-50/50 text-gray-800 placeholder-pink-400"
+                disabled={loading}
+                className="w-full px-6 py-4 rounded-2xl border-2 border-pink-300 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200 bg-pink-50/50 text-gray-800 placeholder-pink-400 disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
@@ -83,17 +129,28 @@ export function LoginPage({ onLogin }: LoginPageProps) {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Secret word 🔒"
-                className="w-full px-6 py-4 rounded-2xl border-2 border-pink-300 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200 bg-pink-50/50 text-gray-800 placeholder-pink-400"
+                disabled={loading}
+                className="w-full px-6 py-4 rounded-2xl border-2 border-pink-300 focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200 bg-pink-50/50 text-gray-800 placeholder-pink-400 disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-4 bg-gradient-to-r from-pink-500 via-red-500 to-purple-500 text-white rounded-2xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2"
+              disabled={loading}
+              className="w-full py-4 bg-gradient-to-r from-pink-500 via-red-500 to-purple-500 text-white rounded-2xl font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
             >
-              <Heart className="w-5 h-5 fill-white" />
-              Enter the Love Zone
-              <Heart className="w-5 h-5 fill-white" />
+              {loading ? (
+                <>
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  <span>Checking...</span>
+                </>
+              ) : (
+                <>
+                  <Heart className="w-5 h-5 fill-white" />
+                  Enter the Love Zone
+                  <Heart className="w-5 h-5 fill-white" />
+                </>
+              )}
             </button>
           </form>
         </div>
