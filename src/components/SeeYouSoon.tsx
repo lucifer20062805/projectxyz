@@ -39,7 +39,7 @@ export function SeeYouSoon() {
               Mark your calendar! 📅
             </p>
             <p className="text-xl text-gray-600 leading-relaxed">
-              Get ready for an unforgettable day filled with love, laughter, and beautiful moments together. This is just the beginning of our amazing journey! 💖
+              Waiting for the day we are gonna meet again! I cant wait honestly.. But ig just to see you... everything is worth the wait. Can't wait to lock our eyes again. 💖
             </p>
           </div>
 
