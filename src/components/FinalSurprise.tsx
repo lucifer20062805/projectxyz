@@ -9,17 +9,17 @@ interface FinalSurpriseProps {
 export function FinalSurprise({ onNext }: FinalSurpriseProps) {
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
 
-  const letterText = `My Dearest Valentine,
+  const letterText = `Hello Harshika,
 
-From the moment I met you, my world became brighter and more beautiful. Every smile you share lights up my heart, and every laugh we share together creates memories I treasure forever.
+The moment I saw you at the club , i was like "Damnn , she is so gorgeous". At first ,i was so jealous that you were talking to Shivang and was not even looking at me both in club or at Rock Beach. But when we got the chance to talk at Auroville Beach , I was sooooo happyyyy that you were interested me tooo...then the drinks we shared , the moments we had , the sunrise we get to see together was all so much dreamy and special for me that I can't even put that feeling in words.
 
-You are the most amazing person I know. Your kindness, your warmth, your incredible spirit - they all make me fall for you more and more each day. When I'm with you, everything feels right, like all the pieces of my life have finally fallen into place.
+I feel veryyy veryyyy happyyyy and emotionally comfortable with you. I really don't know that you like me or are you even a bit interested in talking to me but i know one thing for sure that i like you and I really wanna know more about you !!!
 
-I love the way you make ordinary moments extraordinary. Whether we're having deep conversations or just enjoying comfortable silence, every second with you is precious. You understand me in ways I never thought possible, and you accept me for who I am.
+I am not proposing...ik we need more time to know each other and I will definitely be interested in that...only if you want to then.
 
-This Valentine's Day, I want you to know that you mean the world to me. You're not just my Valentine - you're my best friend, my confidant, my happy place. I can't wait to create more beautiful memories with you, to laugh together, to grow together, and to continue this wonderful journey side by side.
+I just wanna ask you that ,Will you be my Valentine, Harshika!!!???
 
-Thank you for saying yes. Thank you for being you. Thank you for making my heart so incredibly happy.
+Hope that the answer will be yes 👀👀
 
 Forever yours,
 With all my love 💕`;
